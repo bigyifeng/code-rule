@@ -22,7 +22,7 @@ for (let i = 0; i < MINUTES_IN_A_YEAR; i++) {
 
 //反例：
 // 525600 是什么?
-for (var i = 0; i < 525600; i++) {
+for (let i = 0; i < 525600; i++) {
   runCronJob();
 }
 ```
@@ -234,9 +234,9 @@ Promises 是较回调而言更好的一种选择，但 ES7 中的 async 和 awai
 //正例：
 async function getCleanCodeArticle() {
   try {
-    var request = await require("request-promise");
-    var response = await request.get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin");
-    var fileHandle = await require("fs-promise");
+    let request = await require("request-promise");
+    let response = await request.get("https://en.wikipedia.org/wiki/Robert_Cecil_Martin");
+    let fileHandle = await require("fs-promise");
 
     await fileHandle.writeFile("article.html", response);
     console.log("File written");
@@ -259,6 +259,38 @@ require("request-promise")
   });
 ```
 
+### 错误优先处理
+
+将会导致出问题的错误优先处理掉
+
+```js
+//正例：
+function getCleanCodeArticle() {
+  let request = await require("request-promise");
+  let res = await request.get("https://en.wikipedia.org/wikRobert_Cecil_Martin");
+  if(res.code===403){
+    return '暂无权限'
+  }
+  else if(res.code!==200){
+    return '请求异常'
+  }
+  return '请求成功'
+}
+
+//反例：
+function getCleanCodeArticle() {
+  let request = await require("request-promise");
+  let res = await request.get("https://en.wikipedia.org/wikRobert_Cecil_Martin");
+  if(res.code===200){
+    return '请求成功'
+  }
+  else if(res.code===403){
+    return '暂无权限'
+  }
+  return '请求异常'
+}
+```
+
 ### 注释
 
 #### 只对存在一定业务逻辑复杂性的代码进行注释
@@ -268,11 +300,11 @@ require("request-promise")
 ```js
 //正例：
 function hashIt(data) {
-  var hash = 0;
-  var length = data.length;
+  let hash = 0;
+  let length = data.length;
 
-  for (var i = 0; i < length; i++) {
-    var char = data.charCodeAt(i);
+  for (let i = 0; i < length; i++) {
+    let char = data.charCodeAt(i);
     hash = (hash << 5) - hash + char;
 
     // Convert to 32-bit integer
@@ -283,15 +315,15 @@ function hashIt(data) {
 //反例：
 function hashIt(data) {
   // The hash
-  var hash = 0;
+  let hash = 0;
 
   // Length of string
-  var length = data.length;
+  let length = data.length;
 
   // Loop through every character in data
-  for (var i = 0; i < length; i++) {
+  for (let i = 0; i < length; i++) {
     // Get character code.
-    var char = data.charCodeAt(i);
+    let char = data.charCodeAt(i);
     // Make the hash
     hash = (hash << 5) - hash + char;
     // Convert to 32-bit integer
