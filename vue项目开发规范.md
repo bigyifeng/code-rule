@@ -36,55 +36,6 @@ export default {
 </div>
 ```
 
-## 目录结构
-
-```js
-|— node_modules             项目依赖模块
-|— src                      项目源码目录
-    |— config               项目配置
-        |— dev.env.js       开发环境变量
-        |— index.js         主配置文件
-        |— prod.env.js      生产环境变量
-    |— assets               资源目录，资源会被webpack构建
-        |— js               公共js文件目录
-        |— css              公共样式文件目录
-        |— images           图片存放目录
-    |— server               项目部署文件
-        |— http.js          axios封装
-        |— api.js           接口文件夹
-    |— components           项目开发的vue组件
-    |— utils                全局方法
-    |— hooks                全局hook
-    |— routers              前端路由目录
-    |— store                vuex(pinia)目录，定义项目状态管理
-        |— store.js         组装模块并导出，统一管理导出，也可命名为index.js
-    |— App.vue              vue项目的根组件
-    |— main.js              入口js文件
-|— static                   纯静态资源
-|— theme                    element-ui样式库
-|— .babelrc                 babel的配置文件
-|— .editorconfig            编辑器的配置文件
-|— .gitignore               git的忽略配置文件
-|— .postcssrc.js            postcss的配置文件
-|— isIe.js                  判别浏览器的js文件
-|— index.html               html模板，项目入口页面
-|— package-lock.json        项目实际安装  的各个npm package的具体来源和版本号
-|— package.json             npm包配置文件，依赖包信息
-|— README.md                项目介绍
-```
-
-局部组件或者局部 hooks 等，不要放在全局组件文件夹中，应放到当前引用页面的文件夹中，以下划线开头例：
-
-```
-|— views                           页面
-    |— userInfo                    用户信息页面文件夹
-        |— _components             用户信息局部组件
-           |— userInfoHeader.vue   用户信息头部
-        |— _hooks                  用户信息局部hooks
-           |— useGetUserInfo.vue   用户信息头部
-        |— index.vue               用户信息页面（内部会使用userInfoHeader组件）
-```
-
 ## 元素属性特性
 
 - 元素特性的顺序，原生属性放前边，指令放后边
